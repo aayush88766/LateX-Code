@@ -1,0 +1,1028 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+\usepackage{varwidth}
+\usepackage[noonelinecaption=true]{caption}
+\setlength{\parindent}{4em}
+\setlength{\parskip}{1em}
+
+\pagenumbering{gobble} % to disable page number
+\begin{document}
+
+% FRONT PAGE
+
+\begin{center}
+\LARGE \textbf{STUDY OF CONVOLUTION INTEGRAL IN BASIC SYSTEMS, ITS PROPERTIES AND ITS IMPLEMENTATION IN SIMULATOR}
+\end{center}
+
+\begin{center}
+{\large A Project Report Submitted in Fulfillment of the Requirements for the 4th Semester B.Tech. Project.} 
+\end{center}
+$$ by $$
+
+\begin{center}
+    {\LARGE
+    Mayur Raj Bharati --- 1815026\\
+    Aayush Jalan --- 1815027\\
+    Nihar Jyoti Baishya --- 1815028\\
+    Mainak Deb --- 1815029
+    }
+\end{center}
+
+\begin{center}
+    {\LARGE
+    Under the Supervision of\\
+    \textbf{Dr. Anish Kumar Saha}
+    }
+\end{center}
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{nit_silchar.png}
+\end{figure}
+
+\begin{center}
+{\LARGE Computer Science and Engineering Department}\\
+{\Huge \textbf{National Institute Of Technology, Silchar}}\\
+{\LARGE Jan-July, 2020}
+\end{center}
+
+
+% ABSTRACT
+
+\newpage % ABSTRACT
+
+\begin{center}
+\Huge{\textbf{ABSTRACT}}
+\end{center}
+
+\Large{
+\noindent \textbf{“Signals and Systems”} is concerned with the representation of signals and the study of the changes that occur to them as they pass through systems. The study of \textbf{“Signals and Systems”} is, by necessity, highly mathematical since its focus is to allow one to predict, with some certainty, the behaviour of systems when they are subjected to different input signals. The mathematical approach also allows one to design electrical circuits or algorithms that will operate on signals in such a way so as to produce desirable outcomes. There are various kinds of signals and systems which have their own characteristics, advantages and disadvantages.Among them, the \textbf{“Linear Time Invariant System (LTI)”} is of great importance.
+}\par
+
+\Large{
+\noindent The \textbf{“Convolution Integral”} is an integral tool which is used to determine whether a certain system is LTI or not. If a certain system has a transfer function, the system is said to be an LTI system. To recover the output signal from the system having impulse response, the Convolution Integral is of enormous importance.
+}\par
+
+\Large{
+\noindent This project report details an extensive study of the Convolution Integral in Basic Systems, its properties and its characteristics. Our project is solely not about the study of the Convolution Integral, its Properties and the background theory required for the study such as Linear System, Time Invariant Systems, Transfer Functions and some other concepts but also implements the working of the Integral in a simulator like MATLAB. We will present the study of various concepts, along with various numerical as well as graphical examples.
+}\par
+
+\Large{
+\noindent We begin the development by deriving and examining a fundamental and extreme representation for LTI systems and by introducing an important class of these systems.
+}\par
+
+% CONTENTS
+
+\newpage
+\tableofcontents
+
+% Page-1 starts
+
+\newpage 
+
+\pagenumbering{arabic} % to enable page number
+
+\chapter{Introduction}
+
+A system is an entity which takes in a signal as input and produces another signal as output. Depending upon the type of signal that it generates, we can classify systems into various classes. One such class is Linear systems and the other is Time Invariant Systems. The linearity and time invariance play a fundamental role in signal and system analysis because of the many physical phenomena that can be modelled by LTI systems and because a mathematical analysis of the behaviour of such systems can be carried out in a fairly straightforward manner.\par
+
+\noindent One of the primary reasons LTI systems are amenable to analysis is that any such system possesses the superposition property which forms the base for a linear system. As a consequence, if we can represent the input to an LTI system in terms of a linear combination of a set of basic signals, we can then use superposition to compute the output of the system in terms of its response to these basic signals. \par 
+
+\noindent A fundamental problem in system analysis is determining the response to some specified input. This problem can be resolved by characterizing an LTI system in terms of its \textit{impulse response}, defined as the output of an LTI system due to a unit impulse signal input applied at time \textit{t = 0}. The impulse response completely characterizes the behaviour of any LTI system. \par 
+
+
+% Page-2 starts
+
+\newpage
+
+\chapter{Background Theory}
+
+\section{Signal}
+
+A signal is defined as any physical quantity that varies with time, space or any other independent variable or variables. Signals are represented mathematically as functions of one or more independent variables. For example, a speech signal can be represented mathematically by acoustic pressure as functions of time, and a picture can be represented by brightness as a function of two spatial variables. \par 
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-1}
+\end{figure}
+
+\begin{center}
+\textbf{Figure : }Unit Step Signal
+\end{center}
+
+
+% Page-3 starts
+
+\newpage
+
+\subsection{Transformation of Signals}
+
+a. \textbf{Time Shifting :} \par \\
+A signal \textit{x(t)} may be shifted in time by replacing the independent variable $t$ by $t-t0$, where $t0$ is known as the \textbf{shifting factor}. If $t0 > 0$, the signal is shifted to the right and the time shift results in a delay of the signal by t0 units. If $t0 < 0$, the signal is shifted to the left and the time shift results in an advance of the signal by $t0$ units. The shape of the signal remains the same.\par 
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-1-1-1.png}
+\end{figure}
+
+\begin{center}
+\textbf{Figure : }(a) Original signal $x(t)$ (b) Delayed signal $x(t-t0)$ \\
+(c) Advanced Signal $x(t+t0)$
+\end{center}
+
+\noindent b. \textbf{Time Scaling :} \par \\
+A signal $x(t)$ can be scaled in time by replacing $t$ by at where $a$ is known as the \textbf{scaling factor}. If $a > 1$, the scaling results in compression and if $0 < a < 1$, the scaling results in expansion. \par
+
+
+% Page-4 starts
+
+\newpage
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-1-1-2.png}
+\end{figure}
+
+\begin{center}
+\textbf{Figure : }(a) Original signal $x(t)$ (b) Compressed signal $x(2t)$ \\
+(c) Expanded Signal $x(t/2)$
+\end{center}
+
+\noindent b. \textbf{Time Reversal :} \par \\
+In this transformation, one replaces the independent variable $t$ by $–t$. The results of this operation is folding or reflection or time reversal of the signal about the time origin at $t = 0$.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-1-1-3.png}
+\end{figure}
+
+\begin{center}
+\textbf{Figure : }(a) Original signal $x(t)$ (b) Time Reversed signal $x(-t)$
+\end{center}
+
+
+% Page-5 starts
+
+\newpage
+
+\subsection{Singularity of Signal}
+
+Unit impulse signal is defined as : 
+\begin{center}
+  $\delta(t) =
+  \begin{cases}
+   1, & \text{$t = 0$} \\
+   0, & \text{$t\neq0$}
+  \end{cases}$
+\end{center}
+It has a unit area.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-1-2.png}
+\end{figure}
+
+\begin{center}
+\textbf{Figure : }Unit Impulse Signal
+\end{center}
+
+\section{Systems}
+
+Signals may be processed further by \textit{systems}, which may modify them or extract additional information from them. A system is an entity that processes a set of input signals to yield another set of output signals. A system may be made up of physical components, or it may be an algorithm that computes an output from an input signal. \par 
+
+
+% Page-6 starts
+
+\newpage
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-2.png}
+\end{figure}
+
+\begin{center}
+\textbf{Figure : }(a) Continuous-time System (b) Discrete-time System
+\end{center}
+
+\subsection{Basic System Properties}
+
+a. \textbf{Linear and Non Linear Systems :} \par \\
+A system is said to be linear if it follows the \textit{Superposition Principle}. Mathematically, the superposition principle can be stated as follows: \\
+Let $y1(t)$ be the response of a continuous-time system to an input $x1(t)$ and let $y2(t)$ be the response corresponding to an input $x2(t)$. Then the system is linear if:
+\begin{enumerate}
+    \item The response to $x_1(t)$ + $x_2(t)$ is $y_1(t)$ + $y_2(t)$
+    \item The response to $ax_1(t)$ is $ay_1(t)$, where $a$ is any arbitrary constant.
+\end{enumerate}
+The first property is called the \textbf{\textit{law of additivity}} and the second one is known as the \textbf{\textit{law of homogeneity}}. When a system violates any of these two laws, it is said to be \textit{non-linear}. 
+
+
+% Page-7 starts
+
+\newpage
+
+\noindent \textbf{Example :} Check if the system \textit{y(t) = x(sin t)} is linear or not.\\\\
+\textbf{Solution :} \\
+First Let us check the Law Of Additivity (LOA).
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-2-1-1-a.png}
+\end{figure}
+
+\noindent Here, $y_1(t)$ = $x_1(sin t)$ and $y_2(t) = x_2(sin t)$.\\ 
+So $y_1(t)$ + $y_2(t)$ = $x_1(sin t)$ + $x_2(sin t)$. \\
+And $x_1(t)$ + $x_2(t)$ \rightarrow SYSTEM \rightarrow $x_1(sin t)$ + $x_2(sin t)$. \\
+Hence, it satisfies the LOA.
+
+\noindent Let us now check the Law of Homogeneity (LOH).
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-2-1-1-b.png}
+\end{figure}
+
+\noindent Here $y(t) = x(sin t)$. So $ky (t) = kx(sin t)$. \\
+And $kx(t)$ $\rightarrow$ SYSTEM $\rightarrow$ $kx(sin t)$. \\
+Hence, it satisfies the LOH. \\ \\
+So, the system is a \textbf{Linear System}.
+
+
+% Page-8 starts
+
+\newpage
+
+\noindent b. \textbf{Time Invariant and Time Variant Systems :} \par \\
+ A system is said to be \textbf{time invariant} if a time shift in the input signal causes an identical time shift in the output signal, i.e. if its behaviour and characteristics are fixed over time. And if the behaviour and characteristics of a signal changes over time it is referred to as a \textbf{time variant} system.
+
+\noindent \textbf{Example :} Check if the system $y(t) = x(2t)$ is time invariant or not.\\\\
+\textbf{Solution :} \\
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-2-1-2-a.png}
+\end{figure}
+
+\noindent Here, $x(t)$ \rightarrow SYSTEM \rightarrow $x(2t)$ \rightarrow DELAY \rightarrow $x(2t-2t_0)$. \\
+And $x(t)$ \rightarrow DELAY \rightarrow $x(t-t0)$ \rightarrow SYSTEM \rightarrow $x(2t-t_0)$.\\
+Since $y’(t)$ $\neq$ $y(t-t_0)$, hence it is a \textbf{time-variant system}. \\
+
+\noindent b. \textbf{Linear Time-Invariant System :} \par \\
+A system is said to be \textbf{linear time-invariant (LTI)} if it possesses both the properties of a \textbf{linear system} as well as of a \textbf{time-invariant system}. Examples of such systems include: \textit{ y(t) = 2x(t)}. 
+
+
+% Page-9 starts
+
+\newpage
+
+\section{Unit Impulse Response}
+
+\textbf{Unit Impulse Response} is an important characteristic of an LTI system. When the input signal to a system is a \textbf{unit impulse signal}, the output signal generated from the system is said to be a \textbf{unit impulse response}.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-3.png}
+\end{figure}
+
+\noindent Here, \textit{h(t)} is called the \textbf{Unit Impulse Response}. It is always fixed for a given system.
+
+\section{Transfer Function}
+
+\textbf{Transfer function} is an important characteristic of an LTI system. Transfer function is the ratio of Laplace Transform of output signal to the Laplace Transform of input signal when all initial conditions are assumed to be zero.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{2-4.png}
+\end{figure}
+
+\[ H(s)=\frac{Y(s)}{X(s)} \ \ \textrm{, zero initial conditions} \ \ \]
+
+
+% Page-10 starts
+
+\newpage
+
+Now, if for a system \textit{H(s)} exists, then the system is an LTI system, else not an LTI system. Transfer function is also fixed for a given system.
+
+\noindent \textbf{Example :} Find the Transfer Function for the system \textit{y(t) = x(t-1) +5} and comment whether it is an LTI system or not. \\\\
+\textbf{Solution :} \\
+Given, \textit{y(t) = x(t-2) + x(t+2)}. Applying \textbf{Laplace Transform} on both sides, we have
+$$ Y(s) = X(s).e^{-2s} + X(s).e^{2s}$$
+$$ Y(s) = X(s)[e^{-2s} + e^{2s}]$$
+$$ \frac{Y(s)}{X(s)} = e^{-2s} + e^{2s} = H(s)$$
+
+\noindent Taking \textbf{Inverse Laplace Transform} on both sides, we have
+$$ h(t) = \delta(t-2) + \delta(t+2) $$
+\noindent Since the transfer function \textit{H(s)} exists for the system, hence it is a \textbf{LTI} system.
+
+\noindent Generally, let us assume the input to be a unit impulse signal so that the output is an impulse response. For this system, we can calculate transfer function as:
+$$ H(s) = \frac{Y(s)}{X(s)} $$
+$$ i.e, Y(s) = X(s).H(s)$$
+Taking \textbf{Inverse Laplace Transform} on both sides, we have
+$$y(t) = x(t)*h(t)$$
+\noindent where * denotes the convolution operator. So we know for a given system, its \textbf{impulse response} will always be fixed, so \textbf{transfer function} will also be fixed. Hence we can find out the output signal for a system easily using the \textbf{convolution operator}.
+
+
+% Page-11 starts
+
+\newpage
+
+\chapter{Formal Definition:}
+\section{Convolution}
+
+\textbf{Convolution} is an integral that expresses the amount of overlap of one function when it is shifted over another function. It is a mathematical operation on two functions that produces a third function expressing how the shape of one is modified by the other. The term convolution refers to both the result function and to the process of computing it. It is defined as the integral of the product of the two functions after one is reversed and shifted. And the integral is evaluated for all values of shift, producing the convolution function.\par
+\noindent Mathematically, the convolution between two functions f and g can be expressed as:
+$$f(x)*g(x) = \int\limits_{-\infty}^{\infty} f(\tau)g(t-\tau)d\tau$$
+Convolution can be used to calculate the zero state response (i.e. the response to an input when the system has zero initial conditions) of a system to an arbitrary input by using the impulse response of a system. Given a system impulse response $h(t)$ and the input $x(t)$, the output $y(t)$ is the convolution of $h(t)$ and $x(t)$:
+
+
+% Page-12 starts
+
+\newpage
+
+\begin{eqnarray}
+y(t) = x(t)* h(t) = \int\limits_{-\infty}^{\infty} x(\tau)h(t-\tau)d\tau \nonumber 
+\end{eqnarray}                   
+If $h(t) = 0$ for $t < 0$ and $x(t) = 0$ for $t < 0$, we can change the limits of integration as:
+$$y(t) = \int\limits_{0}^{t} x(\tau)h(t-\tau)d\tau$$
+The Convolution Integral is for continuous-time systems only. For discrete-time systems, we have the \textbf{“Convolution Sum”} which is mathematically defined as:
+$$f(n)*g(n) = \sum_{k=-\infty}^{\infty} f(k)g(n-k)$$
+
+\section{Derivation}
+We start with a linear time-invariant system. There is an input to the system $x(t)$ and an output from the system $y(t)$. We need to show that
+$$y(t) = \int_{-\infty}^{\infty} x(\tau)h(t-\tau)d\tau$$
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-2-1.png}
+\end{figure}
+
+
+% Page-13 starts
+
+\newpage
+
+\noindent Now, we consider the same system with the input as an impulse $\delta(t)$. The output is then, by definition, the impulse response $h(t)$.
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-2-2.png}
+\end{figure}\\
+\noindent If we use a delayed impulse into the system, the output is just the impulse response with the same delay.
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-2-3.png}
+\end{figure}\\
+\noindent Because of linearity, if we scale the input by any factor, the output will be scaled by the same factor. In particular, we can scale the input by the factor $x(\tau)d\tau$.
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-2-4.png}
+\end{figure} \\
+
+
+% Page-14 starts
+
+\newpage
+
+\noindent If we integrate the input, the output will also be integrated. In this case, we will take the upper limit of the integration to be $+\infty$ and the lower limit of integration to be $-\infty$.
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-2-5.png}
+\end{figure}\\
+By the shifting property of the impulse function, we know that\\
+$\int_{-\infty}^{\infty}\delta(t-\tau)x(\tau)d\tau = x(t)$. \\ \par 
+
+\noindent Therefore the input to the system is $x(t)$.
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-2-6.png}
+\end{figure} \\
+Hence equating the outputs, we can conclude that
+$$y(t) = \int_{-\infty}^{\infty} h(t-\tau)x(\tau)d\tau$$
+which proves the Convolution Theorem.
+
+
+% Page-15 starts
+
+\newpage
+
+\section{Steps to Perform the Convolution Integral}
+\begin{enumerate}
+    \item Express each function in terms of a dummy variable $\tau$.
+    \item Reflect one of the functions: $g(\tau) \longrightarrow g(-\tau)$.
+    \item Add a time offset, $t$, which allows $g(t- \tau)$ to slide along the $\tau$-axis.
+    \item Start $t$ at $-\infty$ and slide it all the way to $+\infty$. Wherever the two functions intersect, find the integral of their product. In other words, compute a sliding, weighted-sum of function $f(\tau)$, where the weighting function is $g(-\tau)$. 
+\end{enumerate}
+\par
+\noindent \textbf{Example:} Find the convolution of the two continuous-time signals
+\begin{center}
+$x(t) = e^{-|t|}$, for all $t$ and 
+  $h(t) =
+  \begin{cases}
+   e^{-2t}, & \text{$t\geq1$} \\
+   0, & \text{$t<1$}
+  \end{cases}$
+\end{center}
+By definition, $$y(t) = x(t) * h(t) =  \int_{-\infty}^{\infty} h(t-\tau)x(\tau)d\tau$$
+\textbf{Step 1:} Writing the equations and drawing sketches for $x(t)$ and $h(t)$:\\
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-3-1.png}
+\end{figure}
+
+
+% Page-16 starts
+
+\newpage
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=15cm]{3-3-2.png}
+\end{figure}\\
+
+\noindent \textbf{Step 2:} Writing the equations and drawing sketches for $x(\tau)$ and $h(t- \tau)$
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-3-3.png}
+\end{figure}\\
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=15cm]{3-3-4.png}
+\end{figure}\\
+\noindent \textbf{Step 3:} Performing integration to find $y(t)$ for all values of $t$. \\
+\indent \textbf{Case I:} $(t-1) < 0 \longrightarrow t < 1$. The two functions $x(\tau)$ and $h(t-\tau)$ overlap only over the range $-\infty \leq \tau \leq t-1$ such that
+
+
+% Page-17 starts
+
+\newpage
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-3-5.png}
+\end{figure}\\
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics{3-3-6.png}
+\end{figure}\\
+
+\indent \textbf{Case II:} $(t-1) \geq 0 \longrightarrow t \geq 1$. The two functions $x(\tau)$ and $h(t-\tau)$ overlap only over the range $-\infty \leq \tau \leq t-1$ such that \par 
+\begin{eqnarray}
+y(t) &=& \int\limits_{-\infty}^{0} e^{\tau}e^{-2(t-\tau)}d\tau + \int\limits_{0}^{t-1} e^{-\tau}e^{-2(t-\tau)}d\tau + \int\limits_{t-1}^{\infty} e^{-\tau}.0d\tau \nonumber \\
+&=& e^{-2t}(\int\limits_{-\infty}^{0}e^{3\tau}d\tau + \int\limits_{0}^{t-1}e^{\tau}d\tau) \nonumber \\
+&=& e^{-(t+1)}-\frac{2}{3}e^{-2t}, \indent   t\geq1 \nonumber
+\end{eqnarray}\\
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=10cm]{3-3-7.png}
+\end{figure}
+
+
+% Page-18 starts
+
+\newpage
+
+In summary,
+\begin{figure}[htp]
+    \centering
+    \includegraphics[widht=15cm]{3-3-8.png}
+\end{figure} \\
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=15cm]{3-3-9.png}
+    \caption*{Figure: Result of convolution}
+\end{figure} \\
+
+\section{Special Results of Two Cases}
+\noindent \textbf{Case 1:} \underline{Convolution of two rectangular signals of same widths} \par
+\noindent \textbf{Step 1:} Writing the equations and drawing sketches for $x(t)$ and $h(t)$.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height=2cm]{3-4-1.png}
+    \includegraphics[height=3cm]{3-4-2.png}
+\end{figure} \\
+
+
+% Page-19 starts
+
+\newpage
+
+\textbf{Step 2:} Writing the equations and drawing sketches for $x(\tau)$ and $h(t- \tau)$.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[height=2cm]{3-4-3.png}
+    \includegraphics[height=3cm]{3-4-4.png}
+\end{figure} \\
+
+\noindent \textbf{Step 3:} Performing integration to find $y(t)$ for all values of $t$. \\\\
+\indent	\textbf{Case I:} $t +T < -T \longrightarrow t \leq -2T$. We see that the signals do not overlap in this range. \\
+\indent Hence,
+$$y(t)=\int_{-\infty}^{\infty}x(\tau)h(t-\tau)d\tau= 0$$
+\begin{center}
+    \includegraphics[width=9cm]{3-4-5.png}
+\end{center}
+
+\indent \textbf{Case II:} $-T \leq (t+T) < T \longrightarrow -2T \leq t < 0$. The two functions overlap only over the interval $–T \leq \tau \leq (t+T)$ such that
+$$y(t)=\int_{-T}^{t+T} A.Ad\tau = {A^2}(t+2T), \indent -2T \leq t < 0.$$
+
+
+% Page-20 starts
+
+\newpage
+
+\begin{center}
+    \includegraphics[width=9cm]{3-4-6.png}
+\end{center} \\
+
+\indent \textbf{Case III:} $-T \leq t-T \leq T \longrightarrow 0 \leq t \leq 2T$. The two functions overlap only over the interval $(t-T) \leq \tau \leq T$ such that
+$$y(t)=\int_{t-T}^{T} A.Ad\tau = {A^2}(2T-t), \indent 0 \leq t \leq 2T.$$
+
+\begin{center}
+    \includegraphics[width=9cm]{3-4-7.png}
+\end{center} \\
+\indent \textbf{Case IV:} $t-T > T \longrightarrow t > 2T$. The two functions do not overlap in this range. \\
+\indent Hence,
+$$y(t)=\int_{-\infty}^{\infty}x(\tau)h(t-\tau)d\tau= 0, \indent t > 2T$$
+\begin{center}
+    \includegraphics[width=9cm]{3-4-8.png}
+\end{center} \\	
+
+
+% Page-21 starts
+
+\newpage
+
+\noindent In summary,
+\begin{center}
+    \includegraphics{3-4-9.png}
+\end{center} \\
+\begin{center}
+    \includegraphics{3-4-10.png}
+\end{center} \\
+Hence, we can conclude that if two rectangular signals of same width are convoluted, then we get a triangular signal whose amplitude will be product of the amplitudes of the two rectangular signals and the time duration and width of which will be sum of the widths of both the signals. 
+\begin{center}
+    \includegraphics[width=12cm]{3-4-11.png}
+\end{center} 
+
+
+% Page-22 starts
+
+\newpage
+
+\noindent \textbf{Case 2:} \underline{Convolution of two rectangular signals of different widths} \par
+Proceeding like above, we see that the convolution of the given rectangular signals with different widths gives us a trapezoidal signal of amplitude product of the amplitudes of the two rectangular signals and the time duration of the smaller width rectangular signal and width is equal to sum of both widths of the rectangular signals.
+
+\begin{center}
+    \includegraphics[width=12cm]{3-4-12.png}
+\end{center} 
+
+\section{Properties}
+\subsection{Commutative Property}
+
+The convolution operator possesses the commutative property as
+$$x(t) * h(t) = h(t) * x(t)$$
+
+
+% Page-23 starts
+
+\newpage
+
+\noindent This property implies that the role of the input signal and impulse response are interchangeable.
+\begin{center}
+    \includegraphics[width=15cm]{3-5-1.png}
+\end{center}
+\textbf{Proof:} We know
+$$x(t)*h(t) = \int_{-\infty}^{\infty}x(\tau)h(t-\tau)d\tau$$
+If we change the variable by letting $(t- \tau) = a$, then $\tau = (t-a)$, $da = -d\tau$, $a \longrightarrow \infty$ as  $\tau \longrightarrow -\infty$ and $a \longrightarrow -\infty$ as  $τ\tau \longrightarrow \infty$. \par
+\noindent Therefore,
+$$x(t)*h(t) = \int_{-\infty}^{\infty}x(t-a)h(a)da = \int_{-\infty}^{\infty}h(a)x(t-a)da = h(t)*x(t)$$ \par
+
+\subsection{Associative Property}
+
+The convolution operator is associative as
+$$x(t) * [h_1(t)* h_2(t)] = [x(t)* h_1(t)] * h_2(t)$$
+This property implies that a cascade combination of LTI systems can be replaced by a single system whose impulse response is the convolution of the individual impulse responses.
+\begin{center}
+    \includegraphics[width=17cm]{3-5-2-1.png}
+\end{center}
+
+
+% Page-24 starts
+
+\newpage
+
+\noindent \textbf{Proof:}  \par
+\noindent We know,
+\begin{center}
+    \includegraphics[height=4cm]{3-5-2-2.png}
+\end{center}
+We change the variable by letting $\tau = \beta – \alpha$, which also yields $d\tau = d\beta, \beta\longrightarrow\infty$ as $\tau\longrightarrow\infty$ and $\beta\longrightarrow-\infty$ as $\tau\longrightarrow-\infty$. Therefore,
+\begin{center}
+    \includegraphics[height=3cm]{3-5-2-3.png}
+\end{center}
+Interchanging the order of integration gives the desired result as
+\begin{center}
+    \includegraphics[height=5cm]{3-5-2-4.png}
+\end{center}
+
+
+% Page-25 starts
+
+\newpage
+
+\subsection{Distributive Property}
+
+The convolution operator possesses the distributive property as:
+$$x(t) * [h_1(t) + h_2(t)] = x(t)* h_1(t) + x(t)* h_2(t)$$
+This property states that a parallel combination of LTI systems is equivalent to a single system whose impulse response is the sum of the individual impulse responses in the parallel configuration.
+\begin{center}
+    \includegraphics{3-5-3-1.png}
+\end{center}
+\textbf{Proof:} We know,
+\begin{center}
+    \includegraphics{3-5-3-2.png}
+\end{center}
+
+\subsection{Convolution with an Impulse}
+The convolution of a signal $x(t)$ with a unit impulse function results in the signal $x(t)$ itself. Hence a unit impulse signal acts as the identity signal for convolution operator.
+$$x(t) * \delta(t) = x(t)$$
+
+
+% Page-26 starts
+
+\newpage
+
+\begin{center}
+    \includegraphics{3-5-4.png}
+\end{center}
+
+\noindent In general,
+$$x(t) * A\delta(t-t_1) = Ax(t-t_1)$$ \par
+\noindent \textbf{Proof:} We know, 
+$$x(t)*\delta(t) = \int_{-\infty}^{\infty}x(\tau)\delta(t-\tau)d\tau$$
+Again we know for an impulse function,
+$$x(\tau) \delta(t-\tau) = x(t)\delta(t-\tau)$$
+and therefore,
+$$x(t)*\delta(t) = \int_{-\infty}^{\infty}x(\tau)\delta(t-\tau)d\tau = x(t)\int_{-\infty}^{\infty}\delta(t-\tau)d\tau = x(t)$$ \\
+
+\noindent \textbf{Example:} Find $u(t+3)*3\delta(t-1)$. \\
+
+\noindent From \textbf{Property 4}, we can find the above as
+$$u(t+3)*3\delta(t-1) = 3u(t-1+3) = 3u(t+2)$$ 
+
+
+% Page-27 starts
+
+\newpage
+
+\subsection{Time Shifting Property}
+
+If $x(t) * h(t) = y(t)$ , then $x(t) * h(t-t_0) = x(t-t_0) * h(t) = y(t-t_0)$ and 
+$$x(t-t_1) * h(t-t_2) = y(t-t_1-t_2)$$\\
+\textbf{Proof:} We know,
+$$x(t)*h(t) = \int_{-\infty}^{\infty}x(\tau)h(t-\tau)d\tau = y(t) \indent [Given]$$
+$$x(t-t_1)*h(t-t_2) = \int_{-\infty}^{\infty}x(\tau - t_1)h(t-t_2-\tau)d\tau$$
+Let $\tau-t_1 = \alpha$ so that $d\tau= d\alpha$, which also yields $\alpha\longrightarrow\infty$ as $\tau\longrightarrow\infty$ and $\alpha\longrightarrow-\infty$ as $\tau\longrightarrow-\infty$. Therefore,
+$$x(t-t_1) * h(t-t_2) = \int_{-\infty}^{\infty}x(\alpha)h(t-t_2-\alpha-t_1)d\alpha = y(t - t_1 - t_2)[From definition]$$\\
+\textbf{Example:} Find $u(t-1)*u(t-2)$, if given that $u(t)*u(t) = r(t)$.\\
+
+\noindent From \textbf{Property 5}, we can find the above as
+$$u(t-1) * u(t-2) = r(t-1-2) = r(t-3)$$
+
+\subsection{Time Scaling Property}
+
+If $x(t) * h(t) = y(t)$, then $x(at) * h(at) = \frac{1}{|a|} y(at)$. \par
+This property states that if both $x(t)$ and $h(t)$ are time-scaled by $a$, their convolution is also time scaled by $a$ and multiplied by  $\frac{1}{|a|}$.
+
+
+% Page-28 starts
+
+\newpage
+
+\noindent \textbf{Proof:}
+\par
+\indent \textbf{Case I:} $a > 0$. We know,
+$$x(t)*h(t) = \int_{-\infty}^{\infty}x(\tau)h(t-\tau)d\tau = y(t) \indent [Given]$$
+$$\therefore x(at)*h(at) = \int_{-\infty}^{\infty}x(a\tau)h(a(t-\tau))d\tau = \int_{-\infty}^{\infty}x(a\tau)h(at-a\tau)d\tau$$\\
+
+\noindent We change variable by letting $a\tau = \alpha$, which also yields $d\tau = (1/a) d\alpha$, $\alpha\longrightarrow\infty$ as $\tau\longrightarrow\infty$ and $\alpha\longrightarrow-\infty$ as $\tau\longrightarrow-\infty$. Therefore,
+$$x(at)*h(at) = \frac{1}{a}\int_{-\infty}^{\infty}x(\alpha)h(at-\alpha)d\alpha = \frac{1}{a}y(at)$$
+
+\par
+
+\indent \textbf{Case II:} $a < 0$. We know,
+$$x(t)*h(t) = \int_{-\infty}^{\infty}x(\tau)h(t-\tau)d\tau = y(t) \indent [Given]$$
+$$\therefore x(-at)*h(-at) = \int_{-\infty}^{\infty}x(-a\tau)h(-a(t-\tau))d\tau = \int_{-\infty}^{\infty}x(-a\tau)h(-at+a\tau)d\tau$$\\
+
+\noindent We change variable by letting $-a\tau = \alpha$, which also yields $d\tau = -(1/a) d\alpha$, $\alpha\longrightarrow\infty$ as $\tau\longrightarrow-\infty$ and $\alpha\longrightarrow-\infty$ as $\tau\longrightarrow\infty$. Therefore,
+$$x(at)*h(at) = \frac{1}{a}\int_{-\infty}^{\infty}x(\alpha)h(at-\alpha)d\alpha = \frac{1}{a}y(at)$$
+
+\noindent From Case I and Case II, it is evident that
+$$x(at)*h(at) = \frac{1}{|a|}y(at)$$
+
+
+% Page-29 starts
+
+\newpage
+
+\noindent \textbf{Example:} Given $(t^2+t) * t = y(t)$, find the two signals if their convolution gives 1/3 y(3t).
+
+\noindent From \textbf{Property 6}, it is clear that the resultant convolution is time scaled by a factor of 3. So we can find out the two functions as:
+$$x_1(3t) = (3t)^{2+} + 3t = (9t^2 + 3t)$$
+$$x_2(3t) = 3t$$
+
+\subsection{Area Property}
+If $x_1(t) * x_2(t) = y(t)$, and let’s say the area of $x_1(t)$ is $A_1$, the area of $x_2(t)$ is $A_2$ and the area of $y(t)$ is $A$, then
+$$A = A_1.A_2$$
+\textbf{Example:} : Find area of $y(t)$ if $x(t) * h(t) = y(t)$ and the wave forms of $x(t)$ and $h(t)$ are given below:
+\begin{center}
+    \includegraphics[width=15cm]{3-5-7.png}
+\end{center} 
+Here, area of $x(t)$, $A_1$ = 2 x 3 = 6 and area of $h(t)$, $A_2$ = (1/2) x 2 x 4 = 4. \\
+According to Property 7, the area of $y(t)$ is $A$ = 6 x 4 = 24.
+
+
+% Page-30 starts
+
+\newpage
+
+\subsection{Width Property}
+If the non-zero value of signal $x_1(t)$ is between $t_1 \leq t \leq t_2$ and that of signal $x_2(t)$ is between $t_3 \leq t \leq t_4$. Now if $x_1(t) * x_2(t) = y(t)$, then the non-zero value of $y(t)$ is between $t_1 + t_3 \leq t \leq t_2 + t_4$. In other words, if the duration of $x_1(t)$ and $x_2(t)$ are finite, given by $W_x$ and $W_h$ respectively, then the duration of $x_1(t) * x_2(t)$ is $W_x + W_h$.
+
+\noindent \textbf{Example:} Find width of $y(t)$ if $x(t) * h(t) = y(t)$ and the wave forms of $x(t)$ and $h(t)$ are given below:
+\begin{center}
+    \includegraphics[height=5cm]{3-5-8.png}
+\end{center} 
+Here, width of $x(t)$, $W_x = 4$ and width of $h(t)$, $W_h = 4$. \\
+According to Property 8, the width of $y(t)$, $W = W_x + W_h = 4+4 = 8$.
+
+\subsection{Differentiation Property}
+
+If $x(t) * h(t) = y(t)$, then $(\frac{d}{dt}x(t))*h(t) = x(t)*(\frac{d}{dt}h(t)) = \frac{d}{dt}y(t)$. \\ 
+These identities hold under the precise condition that $x$ and $h$ are absolutely integrable and at least one of them has an absolutely integrable weak derivative.
+
+
+% Page-31 starts
+
+\newpage
+
+\noindent \textbf{Proof:} We know,
+$$x(t)*h(t) = \int_{-\infty}^{\infty}x(\tau)h(t-\tau)d\tau = y(t) \indent [Given]$$
+Differentiating both sides with respect to t, we get,
+\begin{eqnarray}
+\frac{d}{dt}y(t) &=& \int_{-\infty}^{\infty}x(\tau)(\frac{d}{dt}h(t-\tau))d\tau \nonumber \\
+&=& x(t)*\frac{d}{dt}h(t) \nonumber
+\end{eqnarray}
+
+\noindent \textbf{Example:} If $y(t) = r(t) * u(t)$ , find $(\frac{d}{dt} y(t))$.
+\par
+\noindent From \textbf{Property 9}, we can say that
+\begin{eqnarray}
+y(t) &=& r(t) * u(t) \nonumber \\
+\implies \frac{d}{dt}y(t) &=& r(t)*\frac{d}{dt}u(t) \nonumber \\
+\implies \frac{d}{dt}y(t) &=& r(t)*\delta(t) \indent [As \frac{d}{dt}u(t) = \delta(t)]  \nonumber \\
+\implies \frac{d}{dt}y(t) &=& r(t) \indent [From \indent Property \indent 4] \nonumber
+\end{eqnarray}
+
+\subsection{Integration Property}
+If $x(t) * u(t) = y(t)$, then $y(t) = \int_{-\infty}^{t}x(\tau)d\tau$.
+\par
+\noindent \textbf{Proof:} Given,
+$$y(t) = x(t) * u(t)$$
+
+
+% Page-32 starts
+
+\newpage
+
+\noindent Differentiating both sides with respect to t, we get:
+\begin{eqnarray}
+\frac{d}{dt}y(t) &=& x(t)*\frac{d}{dt}u(t) \nonumber \\
+\implies \frac{d}{dt}y(t) &=& x(t)*\delta(t) \indent [As \frac{d}{dt}u(t)=\delta(t)] \nonumber \\
+\implies \frac{d}{dt}y(t) &=& x(t) \indent [From \indent Property \indent 4] \nonumber
+\end{eqnarray}
+
+\noindent Integrating both sides with respect to $t$, we get:
+\begin{eqnarray}
+\int_{-\infty}^{t}\frac{d}{dt}y(\tau)d\tau &=& \int_{-\infty}^{t}x(\tau)d\tau \nonumber \\
+\implies y(t) &=& \int_{-\infty}^{t}x(\tau)d\tau \nonumber
+\end{eqnarray}
+
+\noindent \textbf{Example:} Find $r(t) * u(t)$.
+\par
+\noindent From \textbf{Property 10}, we can say that,
+$$r(t) * u(t) = \int_{-\infty}^{t}r(d\tau)d\tau = p(t)$$
+which is the unit parabolic signal.
+
+\subsection{Odd and Even Signals}
+
+\begin{enumerate}
+    \item Convolution of an odd and an even signal is an odd signal.
+    \item Convolution of two odd signals is an even signal.
+    \item Convolution of two even signals is an even signal.
+\end{enumerate}
+
+
+% Page-33 starts
+
+\newpage
+
+\noindent \textbf{Proof:} (1) \\
+Let $x(t)$ and $h(t)$ be an odd and even signal respectively. Using time-scaling property, we have:
+$$x(t) * h(t) = y(t)$$
+$$x(at) * h(at) = \frac{1}{|a|} y(at)$$
+Substituting $a = -1$ into the above equation, we get:
+$$x(-t) * h(-t) = y(-t)$$
+$$\implies x(t) * h(t) = y(-t)$$
+[Since $x(t)$ is an odd signal and $h(t)$ is an even signal]
+$$x(t) * h(t) = - y(-t) = y(t)$$
+which shows that $y(t)$ is an odd signal.
+
+\par
+\noindent \textbf{Proof:} (2) \\
+Let $x(t)$ and $h(t)$ be both odd signals. Using time-scaling property, we have:
+$$x(t) * h(t) = y(t)$$
+$$x(at) * h(at) = \frac{1}{|a|} y(at)$$
+\noindent Substituting $a = -1$ into the above equation, we get:
+$$x(-t) * h(-t) = y(-t)$$
+$$\implies -x(t) * -h(t) = y(-t)$$
+[Since both $x(t)$ and $h(t)$ are odd signals]
+$$\implies x(t) * h(t) = y(-t) = y(t)$$
+which shows that $y(t)$ is an even signal.
+
+
+% Page-34 starts
+
+\newpage
+
+\noindent \textbf{Proof:} (3) \\
+Let $x(t)$ and $h(t)$ be both even signals. Using time-scaling property, we have:
+$$x(t) * h(t) = y(t)$$
+$$x(at) * h(at) = \frac{1}{|a|} y(at)$$
+Substituting $a = -1$ into the above equation, we get:
+$$x(-t) * h(-t) = y(-t)$$
+$$\implies x(t) * h(t) = y(-t) = y(t)$$
+\begin{center}
+    [Since $x(t)$ and $h(t)$ both are even signals] 
+\end{center} 
+which shows that $y(t)$ is an even signal.
+
+\section{Relationship with LTI System Properties}
+
+\noindent The impulse response is of immense importance to determine various LTI system properties.
+
+\begin{enumerate}
+    \item An LTI system is said to be memory-less if the impulse response $h(t) = K\delta(t)$ ,where $K$ is a constant.
+    \item An LTI system is said to be causal if the impulse response $h(t) = 0$, for $t < 0$.
+    \item An LTI system is said to be stable if the impulse response $h(t)$ is absolutely integrable, i.e., 
+    $$\int_{-\infty}^{\infty}|h(t)|dt < \infty$$
+\end{enumerate}
+
+
+% Page-35 starts
+
+\newpage
+
+\section{Applications of Convolution}
+
+\noindent Convolution and related operations are found in many applications in science, engineering and mathematics. Few examples are:
+\begin{enumerate}
+    \item In digital image processing, convolutional filtering plays an important role in many important algorithms in edge detection and related processes.
+    \item In analytical chemistry, Savitzky-Golay smoothing filters are used for the analysis of spectroscopic data. They can improve signal-to-noise ratio with minimal distortion of the spectra.
+    \item In Statistics, a weighted moving average is a convolution.
+    \item In probability theory, the probability distribution of the sum of two independent random variables is the convolution of their individual distributions.
+    \item In computational fluid dynamics, the large eddy simulation (LES) turbulence model uses the convolution operation to lower the range of length scales necessary in computation thereby reducing computational cost.
+\end{enumerate}
+
+\begin{center}
+    \includegraphics[width=10cm]{3-7.jpg}
+\end{center}
+
+
+% Page-36 starts
+
+\newpage
+
+\section{Implementation}
+
+We implemented the convolution integral using MATLAB. In the code given in \textit{Appendix}, we convoluted two similar triangular signals:
+\[
+x(t) =
+\begin{cases}
+    $1 + t$, & \text{$-1 \leq t \leq 0$} \\
+    $1 - t$, & \text{$0 \leq t \leq 1$} \\
+    0, & \text{elsewhere}
+\end{cases}
+\]
+
+\begin{center}
+    \includegraphics[height=10cm]{3-8-1.png}
+\end{center}
+
+\noindent Using the definition of convolution, we obtain the result as
+\[
+y(t) =
+\begin{cases}
+    \frac{1}{6}(t+2)^3, & \text{$-2 \leq t \leq -1$} \\
+    \frac{1}{3}(-t^3+3t+2) - \frac{1}{6}t(t^2+6t+6), & \text{$-1 \leq t < 0$} \\
+    \frac{1}{3}(t^3-3t+2) + \frac{1}{6}t(t^2-6t+6), & \text{$0 \leq t < 1$} \\
+    -\frac{1}{6}(t-2)^3, & \text{$1 \leq t < 2$} \\
+    0, & \text{elsewhere}
+\end{cases}
+\]
+
+
+% Page-37 starts
+
+\newpage
+
+\begin{center}
+    \includegraphics[height=10cm]{3-8-2.png}
+\end{center}
+
+\noindent We also simulated this result using an online simulator tool present in GitHub:
+\begin{center}
+    \includegraphics[width=16cm]{3-8-3.png}
+\end{center}
+\noindent Thus, we can conclude that our code worked as expected and gave us the required result.
+
+
+% Page-38 starts
+ 
+\newpage
+
+\chapter{Appendix}
+
+\noindent Source code for the MATLAB program: 
+\par
+\noindent $clear$ \\
+$clc$ \\
+$t = linspace(-4,4,16384)$ \\
+$x = 0*t$ \\
+$ind = t>=-1$ \& $t<=0$ \\
+$x(ind) = 1+t(ind)$ \\
+$ind = t>=0$ \& $t<1$ \\
+$x(ind) = 1-t(ind)$ 
+\par
+\noindent $figure$ \\
+$plot(t,x,'linewidth',2)$ \\
+$ylim([0$ $1.5])$ \\
+$grid$ $on$ \\
+$set(gca, 'fontsize',14,'fontweight','bold')$ \\
+$xlabel('t')$ \\
+$ylabel('x(t)')$ \\
+$title('Triangular$ $Function$ $x(t)')$ \\
+
+\noindent $z = median(diff(t))*conv(x,x, 'same')$ 
+
+
+% Page-39 starts
+
+\newpage
+
+\noindent $figure$ \\
+$plot(t,z,'linewidth',3)$ \\
+$grid$ $on$ \\
+$set(gca, 'fontsize',14,'fontweight','bold')$ \\
+$xlabel('t')$ \\
+$ylabel('y(t)')$ \\
+$title('Convolution$ $of$ $2$ $Triangular Function')$\\\\
+\par
+\par
+\par
+
+\noindent {\Huge \textbf{Link for Latex-Code :}}\\
+
+\noindent \url{https://github.com/aayush88766/LateX-Code}
+\par 
+\noindent The code is commented for the ease of Understanding.
+
+% Page-40 starts
+
+\newpage
+
+\chapter{References}
+
+{\Large
+\begin{enumerate}
+    \item \textit{Signals and Systems – Tarun Kumar Ravat}
+    \item \textit{Signals and Systems – Alan V. Oppenheim}
+    \item \textit{Convolution – Wikipedia}
+    \item \textit{Signals and Systems – Neso Academy}
+    \item \textit{The Convolution Integral – Swarthmore College Lecture Notes}
+    \item \textit{Convolution Demo – phiresky@github}
+    \item \textit{Convolution – Clarkson University Lecture Notes}
+    \item \textit{Properties of Convolution Integral – OpenStar CNX}
+    \item \textit{Signals and Systems – Monson H. Hayes}
+\end{enumerate}
+}
+
+
+\end{document}
